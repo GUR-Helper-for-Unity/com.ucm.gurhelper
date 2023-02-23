@@ -1,18 +1,14 @@
 using System.Collections;
 using System.Collections.Generic;
-using UnityEngine;
+using UnityEditor;
 
-public class Prueba : MonoBehaviour
+public class Prueba : EditorWindow
 {
-    // Start is called before the first frame update
-    void Start()
+    [MenuItem("Window/Prueba")]
+    static void OpenWindow()
     {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
+        Prueba window = (Prueba)GetWindow(typeof(Prueba));
+        window.minSize = new UnityEngine.Vector2(600, 300);
+        window.Show();
     }
 }
