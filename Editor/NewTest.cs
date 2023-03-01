@@ -148,7 +148,14 @@ public class NewTest : EditorWindow
     private void DrawBottom()
     {
         GUILayout.BeginArea(bottom);
-            
+        switch (actualState)
+        {
+            case MENUPAGE.UBERQUESTION:
+                drawDescription();
+                break;
+            default:
+                break;
+        }
         GUILayout.EndArea();
        
     }
@@ -172,9 +179,15 @@ public class NewTest : EditorWindow
             GUILayout.FlexibleSpace();
             selectedButton = GUILayout.SelectionGrid(selectedButton, selStrings, 1);
             GUILayout.FlexibleSpace();
-
         GUILayout.EndVertical();
 
+
+    }
+    string[] descriptions = { " ",
+    "this is the description for the usability test.",
+    "this is the description for the apreciation/ test."}
+    private void drawDescription()
+    {
 
     }
 
