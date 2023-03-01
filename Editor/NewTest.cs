@@ -9,7 +9,7 @@ using UnityEngine;
 /// </summary>
 public enum MENUPAGE
 {
-    WELCOME, NAME, UBERQUESTION, CONFIGTEST, TAGS, END
+    WELCOME, UBERQUESTION, CONFIGTEST, TAGS, END
 }
 
 public class NewTest : EditorWindow
@@ -18,6 +18,7 @@ public class NewTest : EditorWindow
     Rect header, page, bottom;
     //texturas de prueba para tener un color de fondo en las secciones
     Texture2D headerT, pageT;
+    GUISkin headerS;
 
     MENUPAGE actualState;
 
@@ -29,7 +30,7 @@ public class NewTest : EditorWindow
     static void OpenWindow()
     {
         NewTest window = (NewTest)GetWindow(typeof(NewTest));
-        window.minSize = new UnityEngine.Vector2(600, 300);
+        window.minSize = new UnityEngine.Vector2(1000, 600);
         window.Show();
     }
 
@@ -40,6 +41,7 @@ public class NewTest : EditorWindow
     /// </summary>
     private void OnEnable()
     {
+        headerS = Resources.Load<GUISkin>("Styles/Main");
         //inicializamos texturas de color plano
         headerT = new Texture2D(1, 1);
         headerT.SetPixel(0, 0, new Color(0.3f,0.7f,0.3f,1));
@@ -74,9 +76,9 @@ public class NewTest : EditorWindow
          * bottom
          */
 
-        header.x = 0; header.y = 0; header.width = Screen.width; header.height = Screen.height / 5;
-        page.x = 0; page.y = header.height; page.width = Screen.width; page.height = Screen.height / 2;
-        bottom.x = 0; bottom.y = page.y+page.height; bottom.width = Screen.width; bottom.height = Screen.height / 5;
+        header.x = 0; header.y = 0; header.width = Screen.width; header.height = Screen.height / 8;
+        page.x = 0; page.y = header.height; page.width = Screen.width; page.height = Screen.height *5 /8;
+        bottom.x = 0; bottom.y = page.y+page.height; bottom.width = Screen.width; bottom.height = Screen.height / 4;
 
         //dibujamos las texturas
         GUI.DrawTexture(header, headerT);
@@ -91,8 +93,7 @@ public class NewTest : EditorWindow
     {
         GUILayout.BeginArea(header);
             EditorGUILayout.BeginHorizontal();
-                GUILayout.Label("Página actual: ");
-                GUILayout.Label(actualState.ToString());
+                GUILayout.Label("GAME USER RESEARCH HELPER TOOL", headerS.GetStyle("Header"));
             EditorGUILayout.EndHorizontal();
         GUILayout.EndArea();
     }
@@ -108,11 +109,8 @@ public class NewTest : EditorWindow
                 case MENUPAGE.WELCOME:
                     welcomePage();
                     break;
-                case MENUPAGE.NAME:
-                    GUILayout.Label("this is the name page...");
-                    break;
                 case MENUPAGE.UBERQUESTION:
-                    GUILayout.Label("this is the question page...");
+                    uberQuestion();
                     break;
                 case MENUPAGE.CONFIGTEST:
                     GUILayout.Label("this is the config test page...");
@@ -124,7 +122,24 @@ public class NewTest : EditorWindow
                     GUILayout.Label("this is the end page...");
                     break;
             }
+        drawNavigation();
         GUILayout.EndArea();
+    }
+
+    void drawNavigation()
+    {
+        EditorGUILayout.BeginHorizontal();
+            if (GUILayout.Button("<--", headerS.GetStyle("button"), GUILayout.Height(50), GUILayout.Width(50)))
+            {
+                if (actualState != MENUPAGE.WELCOME) actualState--;
+            }
+            GUILayout.FlexibleSpace();
+            if (GUILayout.Button("-->", headerS.GetStyle("button"), GUILayout.Height(50), GUILayout.Width(50)))
+            {
+                actualState++;
+                if (actualState == MENUPAGE.END) actualState = 0;
+            }
+        EditorGUILayout.EndHorizontal();
     }
 
     /// <summary>
@@ -133,14 +148,7 @@ public class NewTest : EditorWindow
     private void DrawBottom()
     {
         GUILayout.BeginArea(bottom);
-            EditorGUILayout.BeginHorizontal();
-                GUILayout.Label("Cambiar de página");
-                if (GUILayout.Button("-->", GUILayout.Height(20), GUILayout.Width(50)))
-                {
-                    actualState++;
-                    if (actualState == MENUPAGE.END) actualState = 0;
-                }
-            EditorGUILayout.EndHorizontal();
+            
         GUILayout.EndArea();
        
     }
@@ -149,8 +157,25 @@ public class NewTest : EditorWindow
     /// </summary>
     private void welcomePage()
     {
-        GUILayout.Label("this is the welcome page");
+        GUILayout.Label("WELCOME TO THE GAME USER RESEARCH HELPER TOOL FOR UNITY.", headerS.GetStyle("Header"));
+        GUILayout.Label("Use this tool to create different user tests for your project.", headerS.GetStyle("welcomeText"));
+        GUILayout.Label("Click on the continue button to start creating a new user test.", headerS.GetStyle("welcomeText"));
+
     }
-    //etc...
+
+    int selectedButton = -1;
+    string[] selStrings = { " ", " ", " ", " "};
+    private void uberQuestion()
+    {
+        GUILayout.BeginVertical();
+            GUILayout.Label("Selecciona el tipo de prueba que quieres realizar:", headerS.GetStyle("Header"));
+            GUILayout.FlexibleSpace();
+            selectedButton = GUILayout.SelectionGrid(selectedButton, selStrings, 1);
+            GUILayout.FlexibleSpace();
+
+        GUILayout.EndVertical();
+
+
+    }
 
 }
