@@ -113,7 +113,7 @@ public class NewTest : EditorWindow
                     uberQuestion();
                     break;
                 case MENUPAGE.CONFIGTEST:
-                    GUILayout.Label("this is the config test page...");
+                    configTest();
                     break;
                 case MENUPAGE.TAGS:
                         GUILayout.Label("this is the tags page...");
@@ -170,25 +170,50 @@ public class NewTest : EditorWindow
 
     }
 
-    int selectedButton = -1;
-    string[] selStrings = { " ", " ", " ", " "};
+    public enum TESTTYPE
+    {
+        NONE, USABILITY, APRECIATION, CLARITY, BALANCEO
+    }
+    int selectedButton = -1; TESTTYPE testType = TESTTYPE.NONE;
+    string[] selStrings = { "Test de usabilidad", "Test de apreciación/gustos", "Test de claridad", "Test de balanceo"};
     private void uberQuestion()
     {
         GUILayout.BeginVertical();
             GUILayout.Label("Selecciona el tipo de prueba que quieres realizar:", headerS.GetStyle("Header"));
             GUILayout.FlexibleSpace();
             selectedButton = GUILayout.SelectionGrid(selectedButton, selStrings, 1);
+            testType = (TESTTYPE)(selectedButton + 1);
             GUILayout.FlexibleSpace();
         GUILayout.EndVertical();
-
-
     }
     string[] descriptions = { " ",
     "this is the description for the usability test.",
-    "this is the description for the apreciation/ test."}
+    "this is the description for the apreciation/likes test.",
+    "this is the description for the clarity test.",
+    "this is the description for the balanceo test."};
     private void drawDescription()
     {
-
+        GUILayout.Label(descriptions[(int)testType], headerS.GetStyle("welcomeText"));
     }
 
+    Vector2 scrollPosition;
+    private void configTest()
+    {
+        scrollPosition = GUILayout.BeginScrollView(scrollPosition, false, true, headerS.GetStyle("horizontalScrollbar"), headerS.GetStyle("verticalScrollbar"));
+        switch (testType)
+        {
+            case TESTTYPE.USABILITY:
+                break;
+            case TESTTYPE.APRECIATION:
+                break;
+            case TESTTYPE.CLARITY:
+                break;
+            case TESTTYPE.BALANCEO:
+                break;
+        }
+        for(int i = 0; i<50;i++)
+            GUILayout.Label(testType.ToString(), headerS.GetStyle("header"));
+        // End the scrollview we began above.
+        GUILayout.EndScrollView();
+    }
 }
