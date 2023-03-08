@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEditor;
+using UnityEditor.ShaderKeywordFilter;
 using UnityEngine;
 
 /// <summary>
@@ -9,7 +10,7 @@ using UnityEngine;
 /// </summary>
 public enum MENUPAGE
 {
-    WELCOME, UBERQUESTION, CONFIGTEST, TAGS, END
+    WELCOME, UBERQUESTION, CONFIGTEST, TAGS, SAVE,END
 }
 
 public class NewTest : EditorWindow
@@ -116,8 +117,11 @@ public class NewTest : EditorWindow
                     configTest();
                     break;
                 case MENUPAGE.TAGS:
-                        GUILayout.Label("this is the tags page...");
-                        break;
+                    tagsPage();
+                    break;
+                case MENUPAGE.SAVE:
+                    savePage();
+                    break;
                 case MENUPAGE.END:
                     GUILayout.Label("this is the end page...");
                     break;
@@ -215,5 +219,60 @@ public class NewTest : EditorWindow
             GUILayout.Label(testType.ToString(), headerS.GetStyle("header"));
         // End the scrollview we began above.
         GUILayout.EndScrollView();
+    }
+
+    string testName = "Test de ejemplo"; string testFileName = "exampleText"; string[] tags; string tagsArea = "";  string epic = "Batería de pruebas 1";
+    private void tagsPage()
+    {
+        GUILayout.BeginHorizontal();
+            GUILayout.Label("Write your test name:", headerS.GetStyle("welcomeText"));
+            testName = GUILayout.TextField(testName, 30, headerS.GetStyle("textField"));
+        GUILayout.EndHorizontal();
+        GUILayout.BeginHorizontal();
+            GUILayout.Label("Write your test file name:", headerS.GetStyle("welcomeText"));
+            testFileName = GUILayout.TextField(testFileName, 15, headerS.GetStyle("textField"));
+        GUILayout.EndHorizontal();
+        GUILayout.BeginHorizontal();
+            GUILayout.Label("Write, separated by commas, the tags you want to assign to your test: ", headerS.GetStyle("welcomeText"));
+            tagsArea = GUILayout.TextArea(tagsArea, headerS.GetStyle("textArea"));
+            tags = tagsArea.Split(",");
+        GUILayout.EndHorizontal();
+        GUILayout.BeginHorizontal();
+            GUILayout.Label("Write your epic name:", headerS.GetStyle("welcomeText"));
+            epic = GUILayout.TextField(epic, 30, headerS.GetStyle("textField"));
+        GUILayout.EndHorizontal();
+    }
+
+
+    private void savePage()
+    {
+        GUILayout.BeginHorizontal();
+            GUILayout.Label("Tipo de prueba:", headerS.GetStyle("welcomeText"));
+            GUILayout.Label(testType.ToString());
+        GUILayout.EndHorizontal();
+        GUILayout.BeginHorizontal();
+            GUILayout.Label("Cuestionario de la prueba:", headerS.GetStyle("welcomeText"));
+            GUILayout.Label("aqui iria un boton para abrir una ventana con el cuestionario");
+        GUILayout.EndHorizontal();
+        GUILayout.BeginHorizontal();
+            GUILayout.Label("Nombre de la prueba:", headerS.GetStyle("welcomeText"));
+            GUILayout.Label(testName);
+        GUILayout.EndHorizontal();
+        GUILayout.BeginHorizontal();
+            GUILayout.Label("Nombre del archivo:", headerS.GetStyle("welcomeText"));
+            GUILayout.Label(testFileName);
+        GUILayout.EndHorizontal();
+        GUILayout.BeginHorizontal();
+            GUILayout.Label("Tags:", headerS.GetStyle("welcomeText"));
+            GUILayout.Label(tagsArea);
+        GUILayout.EndHorizontal();
+        GUILayout.BeginHorizontal();
+            GUILayout.Label("Agrupar prueba en:", headerS.GetStyle("welcomeText"));
+            GUILayout.Label(epic);
+        GUILayout.EndHorizontal();
+        if (GUILayout.Button("GENERATE!", headerS.GetStyle("button")))
+        {
+            Debug.Log("creando archivo en pruebas/" + epic + "/" + testFileName + ".json...");
+        }
     }
 }
