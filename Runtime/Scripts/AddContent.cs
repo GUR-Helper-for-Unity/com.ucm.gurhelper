@@ -35,8 +35,8 @@ public class AddContent : MonoBehaviour
         scrollRect.content = testInstance.GetComponent<RectTransform>();
     }
     private void OnDisable()
-    {
-        Time.timeScale = previousTimeScale;
+        {
+            Time.timeScale = previousTimeScale;
         Destroy(testInstance);
     }
 }
