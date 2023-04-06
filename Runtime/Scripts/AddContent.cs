@@ -20,6 +20,7 @@ public class AddContent : MonoBehaviour
     /// </summary>
     void Awake()
     {
+
         scrollRect = GetComponent<ScrollRect>();
         viewport = scrollRect.viewport;
         previousTimeScale = Time.timeScale;
@@ -33,10 +34,11 @@ public class AddContent : MonoBehaviour
         //instanciamos la prueba correspondiente
         testInstance = Instantiate<GameObject>(pruebaPrefab, viewport.gameObject.transform);
         scrollRect.content = testInstance.GetComponent<RectTransform>();
+        testInstance.GetComponent<Pagination>().scrollRect = scrollRect;
     }
     private void OnDisable()
-        {
-            Time.timeScale = previousTimeScale;
+    {
+        Time.timeScale = previousTimeScale;
         Destroy(testInstance);
     }
 }
