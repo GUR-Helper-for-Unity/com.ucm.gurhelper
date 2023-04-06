@@ -11,6 +11,11 @@ public enum TestTrigger
 
 public class GURManager : MonoBehaviour
 {
+    //instancia singleton
+    private static GURManager instance;
+    //getter
+    public static GURManager Instance { get { return instance; } }
+
     [Tooltip("Objeto que contiene el Canvas que se va a utilizar (prefab en la carpeta del package)")]
     public GameObject GURCanvas;
     [Tooltip("Elige cuando se va a activar la prueba.")]
@@ -20,7 +25,21 @@ public class GURManager : MonoBehaviour
     [HideInInspector]
     public bool showMinutes = false;
 
-    bool inTest = false;
+    float previousTimeScale = 1f;
+
+
+    private void Awake()
+    {
+        if (instance == null)
+        {
+            instance = this;
+            DontDestroyOnLoad(gameObject);
+        }
+        else
+        {
+            Destroy(gameObject);
+        }
+    }
 
     /// <summary>
     /// Método para hacer aparecer o desaparecer el cuadro de texto para añadir los minutos que durará la prueba.
@@ -34,11 +53,22 @@ public class GURManager : MonoBehaviour
 
     private void OnEnable()
     {
+        //TO DO: Llamar a este método cuando corresponda, no en OnEnable
+        InitTest();
+    }
+
+    /// <summary>
+    /// Método que se llamará cada vez que se inicialice una escena en la cual se quiera
+    /// realizar un test de usuario.
+    /// Se preparará el test para iniciarse según el parámetro asignado (tiempo, inicio o final de escena)
+    /// </summary>
+    private void InitTest()
+    {
+
         ///en caso de que se quiera realizar la prueba cuando se cargue o se descargue la escena actual, 
         ///se añaden los comportamientos al SceneManager
         ///en caso de que se haga por tiempo, se realiza un Invoke con un tiempo de espera de x minutos.
         GURCanvas.SetActive(false);
-        inTest = false;
         switch (triggerType)
         {
             case TestTrigger.TIME:
@@ -67,8 +97,16 @@ public class GURManager : MonoBehaviour
 
     private void ShowTest()
     {
+        previousTimeScale = Time.timeScale;
         Debug.Log("mostrando test...");
+        Time.timeScale = 0f;
         GURCanvas.SetActive(true);
+    }
+
+    public void EndTest()
+    {
+        Time.timeScale = previousTimeScale;
+        GURCanvas.SetActive(false);
     }
 
 }
