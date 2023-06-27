@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 8328184930358770506}
   - component: {fileID: 2389390105602189336}
   - component: {fileID: 6088194212857936975}
+  - component: {fileID: 7471830658347854728}
   m_Layer: 5
   m_Name: Scrollbar
   m_TagString: Untagged
@@ -127,6 +128,18 @@ MonoBehaviour:
   m_OnValueChanged:
     m_PersistentCalls:
       m_Calls: []
+--- !u!114 &7471830658347854728
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 664656443252173778}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3a5e5fb21fd156d47bc035574321bb48, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1288200507524950266
 GameObject:
   m_ObjectHideFlags: 0

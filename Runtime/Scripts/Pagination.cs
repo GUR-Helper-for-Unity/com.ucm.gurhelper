@@ -65,6 +65,8 @@ public class Pagination : MonoBehaviour
     public void goToPreviousPage()
     {
         //desactiva la pagina en la que se encuentra
+        //si el botón de finalizar estaba activo y vuelves a la página anterior, lo desactivas
+        finishButton.gameObject.SetActive(false);
         pages[actualPage].gameObject.SetActive(false);
         actualPage--;
         pages[actualPage].gameObject.SetActive(true);
@@ -72,8 +74,6 @@ public class Pagination : MonoBehaviour
         if (actualPage == 0) previousPage.gameObject.SetActive(false);
         //activa el botón para avanzar a la siguiente pagina
         if (!nextPage.gameObject.activeSelf) nextPage.gameObject.SetActive(true);
-        //si el botón de finalizar estaba activo y vuelves a la página anterior, lo desactivas
-        if (!finishButton.gameObject.activeSelf) finishButton.gameObject.SetActive(false);
 
         scrollRect.verticalScrollbar.value = 1;
 

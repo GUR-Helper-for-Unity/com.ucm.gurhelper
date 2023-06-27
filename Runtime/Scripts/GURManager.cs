@@ -3,10 +3,11 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEditor;
+using System;
 
 public enum TestTrigger
 {
-    TIME, ONLOAD, ONUNLOAD
+    TIME, ONLOAD, CUSTOM
 }
 
 public class GURManager : MonoBehaviour
@@ -27,6 +28,7 @@ public class GURManager : MonoBehaviour
 
     float previousTimeScale = 1f;
 
+    bool unload = false;
 
     private void Awake()
     {
@@ -56,6 +58,18 @@ public class GURManager : MonoBehaviour
         //TO DO: Llamar a este método cuando corresponda, no en OnEnable
         InitTest();
     }
+    private void OnDisable()
+    {
+        //if (unload)
+        //{
+        //    ShowTest();
+        //    while (true)
+        //    {
+
+        //    }
+
+        //}
+    }
 
     /// <summary>
     /// Método que se llamará cada vez que se inicialice una escena en la cual se quiera
@@ -77,14 +91,16 @@ public class GURManager : MonoBehaviour
             case TestTrigger.ONLOAD:
                 SceneManager.sceneLoaded += OnSceneLoaded;
                 break;
-            case TestTrigger.ONUNLOAD:
-                SceneManager.sceneUnloaded += OnSceneUnloaded;
+            case TestTrigger.CUSTOM:
+                Console.WriteLine("RECUERDA: HACER LA LLAMADA EN TU LÓGICA A GurManager::instance.ShowTest()");
+                unload = true;
                 break;
         }
     }
 
     private void OnSceneLoaded(Scene s, LoadSceneMode m)
     {
+
         Debug.Log("La escena " + s.name + "ha sido cargada, se procede a mostrar el test");
         ShowTest();
     }
@@ -95,7 +111,7 @@ public class GURManager : MonoBehaviour
         ShowTest();
     }
 
-    private void ShowTest()
+    public void ShowTest()
     {
         previousTimeScale = Time.timeScale;
         Debug.Log("mostrando test...");
