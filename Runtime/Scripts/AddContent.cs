@@ -3,37 +3,41 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-/// <summary>
-/// Script para añadir al Scroll View el contenido del panel, según la prueba que sea.
-/// </summary>
-public class AddContent : MonoBehaviour
-{
-    private ScrollRect scrollRect;
-    private RectTransform viewport;
-    [SerializeField]
-    private GameObject pruebaPrefab;
-    private GameObject testInstance;
 
+namespace GURHelper
+{
     /// <summary>
-    /// Usamos Awake para poder catchear los componentes antes de que se llame a OnEnable
+    /// Script para añadir al Scroll View el contenido del panel, según la prueba que sea.
     /// </summary>
-    void Awake()
+    public class AddContent : MonoBehaviour
     {
-        scrollRect = GetComponent<ScrollRect>();
-        viewport = scrollRect.viewport;
-    }
-    /// <summary>
-    /// Usamos OnEnable y OnDisable porque el Canvas aparecerá y desaparecerá cuando sea necesario.
-    /// </summary>
-    private void OnEnable()
-    {
-        //instanciamos la prueba correspondiente
-        testInstance = Instantiate<GameObject>(pruebaPrefab, viewport.gameObject.transform);
-        scrollRect.content = testInstance.GetComponent<RectTransform>();
-        testInstance.GetComponent<Pagination>().scrollRect = scrollRect;
-    }
-    private void OnDisable()
-    {
-        Destroy(testInstance);
+        private ScrollRect scrollRect;
+        private RectTransform viewport;
+        [SerializeField]
+        private GameObject pruebaPrefab;
+        private GameObject testInstance;
+
+        /// <summary>
+        /// Usamos Awake para poder catchear los componentes antes de que se llame a OnEnable
+        /// </summary>
+        void Awake()
+        {
+            scrollRect = GetComponent<ScrollRect>();
+            viewport = scrollRect.viewport;
+        }
+        /// <summary>
+        /// Usamos OnEnable y OnDisable porque el Canvas aparecerá y desaparecerá cuando sea necesario.
+        /// </summary>
+        private void OnEnable()
+        {
+            //instanciamos la prueba correspondiente
+            testInstance = Instantiate<GameObject>(pruebaPrefab, viewport.gameObject.transform);
+            scrollRect.content = testInstance.GetComponent<RectTransform>();
+            testInstance.GetComponent<Pagination>().scrollRect = scrollRect;
+        }
+        private void OnDisable()
+        {
+            Destroy(testInstance);
+        }
     }
 }
