@@ -39,7 +39,9 @@ namespace GURHelper
         public bool[] persistences = new bool[Enum.GetValues(typeof(persistenceType)).Length - 1];
         [HideInInspector]
         public bool[] serializers = new bool[Enum.GetValues(typeof(serializerType)).Length - 1];
-        public trackerType myTracker = trackerType.BASIC;
+        [Tooltip("Elige el tipo de tracker necesario para la prueba que se va a realizar.")]
+        public trackerType trackerType = trackerType.BASIC;
+        private Tracker myTracker;
 
         private void Awake()
         {
@@ -65,19 +67,18 @@ namespace GURHelper
             for (int i = 0; i < persistences.Length; i++)
             {
                 persistenceType enumValue = (persistenceType)Enum.GetValues(typeof(persistenceType)).GetValue(i);
-                Debug.Log($"Enum: {enumValue}, Bool: {persistences[i]}");
+                //Debug.Log($"Enum: {enumValue}, Bool: {persistences[i]}");
             }
             for (int i = 0; i < serializers.Length; i++)
             {
                 serializerType enumValue = (serializerType)Enum.GetValues(typeof(serializerType)).GetValue(i);
-                Debug.Log($"Enum: {enumValue}, Bool: {serializers[i]}");
+                //Debug.Log($"Enum: {enumValue}, Bool: {serializers[i]}");
             }
         }
 
 
-        private void OnEnable()
+        private void Start()
         {
-            //TO DO: Llamar a este método cuando corresponda, no en OnEnable
             InitTest();
             InitTracker();
         }
@@ -99,6 +100,8 @@ namespace GURHelper
         /// </summary>
         private void InitTracker()
         {
+            myTracker = Tracker.Instance;
+            myTracker.type = trackerType;
             //comprueba que se haya definido al menos un tipo de persistencia y un tipo de serializador. Si no, devuelve un warning.
             bool exist = (persistences.Any(x => x) && serializers.Any(x => x));
             if (!exist)
@@ -135,10 +138,33 @@ namespace GURHelper
                     return s;
                 })
                 .ToList();
+            //creamos una lista con las persistencias que se han indicado que se quieren usar
+            List<persistenceType> pSystems = persistences
+                .Select((valor, indice) => new { Valor = valor, Indice = indice })
+                .Where(item => item.Valor) 
+                .Select(item => (persistenceType)item.Indice) 
+                .ToList();
+
             //por cada sistema de serializacion, creamos un nuevo sistema de persistencia de los tipos indicados
             foreach (Serializer s in sSystems)
             {
-
+                foreach(persistenceType p in pSystems)
+                {
+                    //coger tipo de persistencia
+                    switch (p)
+                    {
+                        case persistenceType.FILE:
+                            FilePersistence fp = new FilePersistence(s);
+                            myTracker.AddPersistence(fp);
+                            break;
+                        case persistenceType.SERVER:
+                            Debug.LogWarning("TO DO: Implementar server persistance");
+                            //myTracker.AddPersistence(new ServerPersistence(s));
+                            break;
+                        case persistenceType.NULL:
+                            break;
+                    }
+                }
             }
 
         }

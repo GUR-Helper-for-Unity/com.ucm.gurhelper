@@ -14,7 +14,7 @@ namespace GURHelper
         {
             tipo = eventType.DEATH;
             nombre = tipo.ToString();
-
+            conjunto.Add(trackerType.DIFFICULTY_DEATHS);
         }
 
         public DeathEvent X(float X)

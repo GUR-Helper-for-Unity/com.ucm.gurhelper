@@ -1,0 +1,85 @@
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+using System.Linq;
+
+namespace GURHelper
+{
+    public class Tracker
+    {
+        private static Tracker instance;
+        public trackerType type { get; set; }
+
+        public Tracker() { type = trackerType.BASIC; }
+        public static Tracker Instance
+        {
+            get
+            {
+                if (instance == null)
+                {
+                    instance = new Tracker();
+                    instance.persistences = new List<Persistence>();
+                }
+                return instance;
+            }
+        }
+        List<Persistence> persistences { get; set; }
+        public void AddPersistence(Persistence p) { persistences.Add(p); Debug.Log("Added persistance: " + p.GetType().Name); }
+        public void TrackSynchroEvent(Event e)
+        {
+            //Debug.Log(e.name);
+            if (!CheckUsage(e) || persistences.Count == 0)
+                return;
+            foreach (Persistence persistence in persistences)
+            {
+                persistence.Send(e);
+            }
+        }
+        private bool CheckUsage(Event e)
+        {
+            //caso base: usable en cualquier tracker
+            if (e.conjunto.Count == 0)
+                return true;
+            //resto de casos: debe contener el tipo actual de tracker en el conjunto
+            if (e.conjunto.Any(item => item == type))
+                return true;
+            //error: no se puede enviar este tipo de evento.
+            Debug.LogError("This tracker (type: {type}) cannot track an event of type: " + e.tipo);
+            return false;
+        }
+
+        //------------------------------ALL EVENTS----------------------------------------
+        #region BASIC EVENTS
+        public SessionStartEvent SessionStart()
+        {
+            return new SessionStartEvent();
+        }
+        public SessionEndEvent SessionEnd()
+        {
+            return new SessionEndEvent();
+        }
+        public PauseEvent Pause()
+        {
+            return new PauseEvent();
+        }
+        public UnPauseEvent UnPause()
+        {
+            return new UnPauseEvent();
+        }
+
+
+        #endregion
+
+        #region DIFFICULTY_DEATHS
+        public DeathEvent Death()
+        {
+            return new DeathEvent();
+        }
+        public PlayerPosEvent PlayerPosition()
+        {
+            return new PlayerPosEvent();
+        }
+        #endregion
+
+    }
+}

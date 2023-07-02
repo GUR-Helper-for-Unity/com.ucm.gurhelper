@@ -8,6 +8,11 @@ namespace GURHelper
     public abstract class Event
     {
         public eventType tipo;
+        /// <summary>
+        /// usages es un array que indica los trackers a los que está asociado este evento. El evento sólo se enviará si el tracker actual está dentro del conjunto
+        /// de trackers asociados al evento. Si está vacío, cualquier tracker puede implementarlo.
+        /// </summary>
+        public List<trackerType> conjunto;
         public string nombre;
         public float tiempo;
         public long sesion;

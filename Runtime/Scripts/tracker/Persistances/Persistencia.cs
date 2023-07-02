@@ -7,6 +7,7 @@ using System.Timers;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Diagnostics;
+using Debug = UnityEngine.Debug;
 
 namespace GURHelper
 {
@@ -17,11 +18,7 @@ namespace GURHelper
         public Persistence(Serializer s)
         {
             serializer = s;
-        }
-        public Persistence() { }
-        public void SetSerializer(Serializer s)
-        {
-            serializer = s;
+            Debug.Log("Added serializer: " + s.GetType().Name);
         }
         public abstract void Send(Event e);
         public void PersistThread()
