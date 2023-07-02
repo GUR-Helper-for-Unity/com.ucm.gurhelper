@@ -5,8 +5,6 @@ using UnityEngine.SceneManagement;
 using UnityEditor;
 using System.Linq;
 using System;
-using Unity.Plastic.Newtonsoft.Json.Linq;
-using Unity.VisualScripting.YamlDotNet.Serialization;
 
 
 namespace GURHelper
@@ -49,51 +47,40 @@ namespace GURHelper
             {
                 instance = this;
                 DontDestroyOnLoad(gameObject);
+                //realizamos la inicalización sólo la primera vez que se cree la instancia
+                InitTest();
+                InitTracker();
             }
             else
             {
                 Destroy(gameObject);
             }
         }
+        private void Start()
+        {
+            myTracker.TrackSynchroEvent(myTracker.SessionStart());
+        }
+        private void OnApplicationQuit()
+        {
+            myTracker.TrackSynchroEvent(myTracker.SessionEnd());
+        }
 
         /// <summary>
-        /// Método para actualizar los valores que se ven en el editor: cuadro de texto para añadir los minutos que durará la prueba,
-        /// valores de los array publicos sobre la persistencia y serializadores que habrán.
+        /// Método para actualizar los valores que se ven en el editor: cuadro de texto para añadir los minutos que durará la prueba
         /// Este comportamiento está definido en GURManagerEditor.cs
         /// </summary>
         private void OnValidate()
         {
             showMinutes = triggerType == TestTrigger.TIME;
-            for (int i = 0; i < persistences.Length; i++)
-            {
-                persistenceType enumValue = (persistenceType)Enum.GetValues(typeof(persistenceType)).GetValue(i);
-                //Debug.Log($"Enum: {enumValue}, Bool: {persistences[i]}");
-            }
-            for (int i = 0; i < serializers.Length; i++)
-            {
-                serializerType enumValue = (serializerType)Enum.GetValues(typeof(serializerType)).GetValue(i);
-                //Debug.Log($"Enum: {enumValue}, Bool: {serializers[i]}");
-            }
         }
-
-
-        private void Start()
+        private void OnSceneLoaded(Scene s, LoadSceneMode m)
         {
-            InitTest();
-            InitTracker();
-        }
-        private void OnDisable()
-        {
-            //if (unload)
-            //{
-            //    ShowTest();
-            //    while (true)
-            //    {
 
-            //    }
-
-            //}
+            Debug.Log("La escena " + s.name + "ha sido cargada, se procede a mostrar el test");
+            ShowTest();
         }
+
+        //--------------------------LÓGICA DEL MANAGER------------------------------------------------------
 
         /// <summary>
         /// Inicializará el tracker según los parámetros otorgados
@@ -170,14 +157,13 @@ namespace GURHelper
         }
 
         /// <summary>
-        /// Método que se llamará cada vez que se inicialice una escena en la cual se quiera
-        /// realizar un test de usuario.
+        /// Método que se llamará cada vez que se inicialice una escena en la cual se quiera realizar un test de usuario.
         /// Se preparará el test para iniciarse según el parámetro asignado (tiempo, inicio o final de escena)
         /// </summary>
         private void InitTest()
         {
 
-            ///en caso de que se quiera realizar la prueba cuando se cargue o se descargue la escena actual, 
+            ///en caso de que se quiera realizar la prueba cuando se cargue la escena actual, 
             ///se añaden los comportamientos al SceneManager
             ///en caso de que se haga por tiempo, se realiza un Invoke con un tiempo de espera de x minutos.
             GURCanvas.SetActive(false);
@@ -196,31 +182,27 @@ namespace GURHelper
             }
         }
 
-        private void OnSceneLoaded(Scene s, LoadSceneMode m)
-        {
-
-            Debug.Log("La escena " + s.name + "ha sido cargada, se procede a mostrar el test");
-            ShowTest();
-        }
-
-        private void OnSceneUnloaded(Scene s)
-        {
-            Debug.Log("La escena " + s.name + "está siendo descargada, se procede a mostrar el test");
-            ShowTest();
-        }
-
+        /// <summary>
+        /// Método que hará visible el test
+        /// </summary>
         public void ShowTest()
         {
             previousTimeScale = Time.timeScale;
             Debug.Log("mostrando test...");
             Time.timeScale = 0f;
             GURCanvas.SetActive(true);
+            myTracker.TrackSynchroEvent(myTracker.TestStarted());
+
         }
 
+        /// <summary>
+        /// Método que hará desaparecer el test
+        /// </summary>
         public void EndTest()
         {
             Time.timeScale = previousTimeScale;
             GURCanvas.SetActive(false);
+            myTracker.TrackSynchroEvent(myTracker.TestEnd());
         }
 
     }

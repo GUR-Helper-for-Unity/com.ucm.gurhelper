@@ -9,9 +9,9 @@ namespace GURHelper
     /// </summary>
     public enum eventType { 
         //BASIC EVENTS
-        SESSION_START, SESSION_END, PAUSE, UNPAUSE,
+        SESSION_START, SESSION_END, TEST_START, TEST_END, LEVEL_START, LEVEL_END, PAUSE, UNPAUSE,
         //DIFFICULTY DEATH TEST RELATED
-        LEVEL_START, LEVEL_END, DEATH, JUMP, COLLISION, PLAYER_POSITION, 
+        DEATH, PLAYER_POSITION, 
         //END
         NULL
     }

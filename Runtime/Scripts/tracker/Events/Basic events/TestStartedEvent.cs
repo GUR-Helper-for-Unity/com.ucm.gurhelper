@@ -5,11 +5,11 @@ using UnityEngine;
 namespace GURHelper
 {
     [System.Serializable]
-    public class UnPauseEvent : Event
+    public class TestStartedEvent : Event
     {
-        public UnPauseEvent()
+        public TestStartedEvent()
         {
-            setTipo(eventType.UNPAUSE);
+            setTipo(eventType.TEST_START);
             nombre = tipo.ToString();
 
         }

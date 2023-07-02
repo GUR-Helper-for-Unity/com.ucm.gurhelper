@@ -9,7 +9,7 @@ namespace GURHelper
     {
         public PauseEvent()
         {
-            tipo = eventType.PAUSE;
+            setTipo(eventType.PAUSE);
             nombre = tipo.ToString();
 
         }

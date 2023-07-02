@@ -9,7 +9,7 @@ namespace GURHelper
     {
         public SessionStartEvent()
         {
-            tipo = eventType.SESSION_START; nombre = tipo.ToString();
+            setTipo(eventType.SESSION_START); nombre = tipo.ToString();
         }
     }
 }

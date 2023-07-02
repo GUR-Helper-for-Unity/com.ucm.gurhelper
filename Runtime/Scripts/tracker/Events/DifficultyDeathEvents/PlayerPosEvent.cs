@@ -12,7 +12,7 @@ namespace GURHelper
 
         public PlayerPosEvent()
         {
-            tipo = eventType.PLAYER_POSITION;
+            setTipo(eventType.PLAYER_POSITION);
             nombre = tipo.ToString();
             conjunto.Add(trackerType.DIFFICULTY_DEATHS);
         }

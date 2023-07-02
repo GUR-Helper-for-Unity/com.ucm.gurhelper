@@ -9,7 +9,7 @@ namespace GURHelper
     {
         public SessionEndEvent()
         {
-            tipo = eventType.SESSION_END; nombre = tipo.ToString();
+            setTipo(eventType.SESSION_END); nombre = tipo.ToString();
         }
     }
 }

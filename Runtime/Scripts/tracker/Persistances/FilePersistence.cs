@@ -21,17 +21,23 @@ namespace GURHelper
         {
             directory = "./Resultado del test";
 
-            if (Directory.Exists(directory))
+            //no se ha creado por primera vez en esta sesion por otro archivo de persistencia
+            if (!Tracker.Instance.isDirectoryOn)
             {
-                string[] files = Directory.GetFiles(directory);
-                foreach (string file in files)
+                if (Directory.Exists(directory))
                 {
-                    File.Delete(file);
-                }
-                Directory.Delete(directory);
+                    string[] files = Directory.GetFiles(directory);
+                    foreach (string file in files)
+                    {
+                        File.Delete(file);
+                    }
+                    Directory.Delete(directory);
 
+                }
+                Directory.CreateDirectory(directory);
+                Tracker.Instance.isDirectoryOn = true;
             }
-            Directory.CreateDirectory(directory);
+
 
             //create stream
             string fileName = "/ID_" + sesion + serializer.getExtension(); //name

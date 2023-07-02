@@ -9,6 +9,7 @@ namespace GURHelper
     {
         private static Tracker instance;
         public trackerType type { get; set; }
+        public bool isDirectoryOn { get; set; } = false;
 
         public Tracker() { type = trackerType.BASIC; }
         public static Tracker Instance
@@ -27,7 +28,7 @@ namespace GURHelper
         public void AddPersistence(Persistence p) { persistences.Add(p); Debug.Log("Added persistance: " + p.GetType().Name); }
         public void TrackSynchroEvent(Event e)
         {
-            //Debug.Log(e.name);
+            Debug.Log(e.nombre);
             if (!CheckUsage(e) || persistences.Count == 0)
                 return;
             foreach (Persistence persistence in persistences)
@@ -58,6 +59,14 @@ namespace GURHelper
         {
             return new SessionEndEvent();
         }
+        public TestStartedEvent TestStarted()
+        {
+            return new TestStartedEvent();
+        }
+        public TestEndEvent TestEnd()
+        {
+            return new TestEndEvent();
+        }
         public PauseEvent Pause()
         {
             return new PauseEvent();
@@ -66,8 +75,14 @@ namespace GURHelper
         {
             return new UnPauseEvent();
         }
-
-
+        public LevelStartEvent LevelStart()
+        {
+            return new LevelStartEvent();
+        }
+        public LevelEndEvent LevelEnd()
+        {
+            return new LevelEndEvent();
+        }
         #endregion
 
         #region DIFFICULTY_DEATHS

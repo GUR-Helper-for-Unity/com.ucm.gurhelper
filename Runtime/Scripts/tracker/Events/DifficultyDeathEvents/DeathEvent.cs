@@ -12,7 +12,7 @@ namespace GURHelper
 
         public DeathEvent()
         {
-            tipo = eventType.DEATH;
+            setTipo(eventType.DEATH);
             nombre = tipo.ToString();
             conjunto.Add(trackerType.DIFFICULTY_DEATHS);
         }
