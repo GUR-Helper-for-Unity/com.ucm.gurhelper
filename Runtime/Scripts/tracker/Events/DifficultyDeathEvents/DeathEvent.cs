@@ -5,10 +5,11 @@ using UnityEngine;
 namespace GURHelper
 {
     [System.Serializable]
-    public class DeathEvent : Event
+    public class DeathEvent : GUREvent
     {
         public float x;
         public float y;
+        public float z;
 
         public DeathEvent()
         {
@@ -26,6 +27,11 @@ namespace GURHelper
         public DeathEvent Y(float Y)
         {
             y = Y;
+            return this;
+        }
+        public DeathEvent Z(float Z)
+        {
+            z = Z;
             return this;
         }
     }

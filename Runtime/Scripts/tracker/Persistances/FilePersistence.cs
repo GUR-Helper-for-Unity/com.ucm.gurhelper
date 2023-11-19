@@ -59,7 +59,7 @@ namespace GURHelper
         }
 
 
-        public override void Send(Event e)
+        public override void Send(GUREvent e)
         {
             string s = serializer.Serialize(e);
             if (e.tipo == eventType.SESSION_END)

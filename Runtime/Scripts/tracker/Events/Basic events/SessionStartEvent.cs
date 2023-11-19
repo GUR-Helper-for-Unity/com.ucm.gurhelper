@@ -5,7 +5,7 @@ using UnityEngine;
 namespace GURHelper
 {
     [System.Serializable]
-    public class SessionStartEvent : Event
+    public class SessionStartEvent : GUREvent
     {
         public SessionStartEvent()
         {

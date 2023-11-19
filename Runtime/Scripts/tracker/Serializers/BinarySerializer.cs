@@ -7,7 +7,7 @@ namespace GURHelper
 {
     public class BinarySerializer : Serializer
     {
-        public string Serialize(Event e)
+        public string Serialize(GUREvent e)
         {
             BinaryFormatter binaryFormatter = new BinaryFormatter();
             MemoryStream stream = new MemoryStream();

@@ -5,7 +5,7 @@ using UnityEngine;
 namespace GURHelper
 {
     [System.Serializable]
-    public class LevelEndEvent : Event
+    public class LevelEndEvent : GUREvent
     {
         public enum LEVEL_STATUS { SUCCESS,LOSE,MATCH,QUIT,NONE}
         public int nivel;

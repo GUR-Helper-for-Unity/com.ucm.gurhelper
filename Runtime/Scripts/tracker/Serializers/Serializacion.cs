@@ -6,7 +6,7 @@ namespace GURHelper
 {
     public interface Serializer
     {
-        public string Serialize(Event e);
+        public string Serialize(GUREvent e);
         public string getExtension();
     }
 }

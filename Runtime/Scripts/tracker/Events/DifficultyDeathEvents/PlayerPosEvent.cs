@@ -5,7 +5,7 @@ using UnityEngine;
 namespace GURHelper
 {
     [System.Serializable]
-    public class PlayerPosEvent : Event
+    public class PlayerPosEvent : GUREvent
     {
         public float x;
         public float y;

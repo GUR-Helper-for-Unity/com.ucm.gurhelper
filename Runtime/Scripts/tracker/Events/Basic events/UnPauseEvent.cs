@@ -5,7 +5,7 @@ using UnityEngine;
 namespace GURHelper
 {
     [System.Serializable]
-    public class UnPauseEvent : Event
+    public class UnPauseEvent : GUREvent
     {
         public UnPauseEvent()
         {

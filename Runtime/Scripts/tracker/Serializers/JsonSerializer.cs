@@ -8,7 +8,7 @@ namespace GURHelper
     public class JsonSerializer : Serializer
     {
 
-        public string Serialize(Event e)
+        public string Serialize(GUREvent e)
         {
             return JsonUtility.ToJson(e);
         }

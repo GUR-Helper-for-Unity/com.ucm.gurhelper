@@ -5,7 +5,7 @@ using UnityEngine;
 namespace GURHelper
 {
     [System.Serializable]
-    public class LevelStartEvent : Event
+    public class LevelStartEvent : GUREvent
     {
         //Guarda el indice de la escena en la que ocurre
         public int nivel;

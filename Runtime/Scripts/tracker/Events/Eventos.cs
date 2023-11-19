@@ -1,12 +1,12 @@
 using System.Collections;
 using System.Collections.Generic;
-using Unity.Plastic.Newtonsoft.Json;
 using UnityEngine;
+using UnityEngine.Events;
 
 namespace GURHelper
 {
     [System.Serializable]
-    public abstract class Event
+    public abstract class GUREvent
     {
         //getter privado explicito para evitar la serialización de la variable publica
         public eventType tipo { get; private set; }
@@ -19,7 +19,7 @@ namespace GURHelper
         public string nombre;
         public float tiempo;
         public long sesion;
-        public Event()
+        public GUREvent()
         {
             tiempo = Time.realtimeSinceStartup;
             sesion = UnityEngine.Analytics.AnalyticsSessionInfo.sessionId;
@@ -28,3 +28,13 @@ namespace GURHelper
     }
 }
 
+/*
+public enum eventType
+{
+    //BASIC EVENTS
+    SESSION_START, SESSION_END, TEST_START, TEST_END, LEVEL_START, LEVEL_END, PAUSE, UNPAUSE,
+    //DIFFICULTY DEATH TEST RELATED
+    DEATH, PLAYER_POSITION,
+    //END
+    NULL
+}*/

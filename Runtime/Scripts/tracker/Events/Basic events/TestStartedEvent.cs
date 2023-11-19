@@ -5,7 +5,7 @@ using UnityEngine;
 namespace GURHelper
 {
     [System.Serializable]
-    public class TestStartedEvent : Event
+    public class TestStartedEvent : GUREvent
     {
         public TestStartedEvent()
         {

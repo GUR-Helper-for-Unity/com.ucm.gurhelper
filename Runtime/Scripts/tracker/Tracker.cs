@@ -26,7 +26,7 @@ namespace GURHelper
         }
         List<Persistence> persistences { get; set; }
         public void AddPersistence(Persistence p) { persistences.Add(p); Debug.Log("Added persistance: " + p.GetType().Name); }
-        public void TrackSynchroEvent(Event e)
+        public void TrackSynchroEvent(GUREvent e)
         {
             Debug.Log(e.nombre);
             if (!CheckUsage(e) || persistences.Count == 0)
@@ -36,7 +36,7 @@ namespace GURHelper
                 persistence.Send(e);
             }
         }
-        private bool CheckUsage(Event e)
+        private bool CheckUsage(GUREvent e)
         {
             //caso base: usable en cualquier tracker
             if (e.conjunto.Count == 0)

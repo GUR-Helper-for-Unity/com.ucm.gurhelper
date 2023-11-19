@@ -140,6 +140,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3a5e5fb21fd156d47bc035574321bb48, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  sensibility: 0.1
 --- !u!1 &1288200507524950266
 GameObject:
   m_ObjectHideFlags: 0
@@ -540,6 +541,9 @@ MonoBehaviour:
   triggerType: 0
   minutes: 0.1
   showMinutes: 1
+  persistences: 0000
+  serializers: 0000
+  trackerType: 0
 --- !u!1 &6300599474032204534
 GameObject:
   m_ObjectHideFlags: 0

@@ -11,7 +11,7 @@ namespace GURHelper
 {
     public enum TestTrigger
     {
-        TIME, ONLOAD, CUSTOM
+        TIME, ONLOAD, ONUNLOAD, CUSTOM
     }
 
     public class GURManager : MonoBehaviour
@@ -32,6 +32,10 @@ namespace GURHelper
         float previousTimeScale = 1f;
         bool custom = false;
 
+        [Tooltip("GURManager comprobará que la escena a descargar sea esta antes de lanzar el test en modo UNLOAD.")]
+        public string unloadSceneName = "";
+
+
         //TRACKER RELATED
         [HideInInspector]
         public bool[] persistences = new bool[Enum.GetValues(typeof(persistenceType)).Length - 1];
@@ -40,6 +44,8 @@ namespace GURHelper
         [Tooltip("Elige el tipo de tracker necesario para la prueba que se va a realizar.")]
         public trackerType trackerType = trackerType.BASIC;
         private Tracker myTracker;
+
+        Scene testScene;
 
         private void Awake()
         {
@@ -58,11 +64,37 @@ namespace GURHelper
         }
         private void Start()
         {
+            SceneManager.LoadScene("TestScene", LoadSceneMode.Additive);
             myTracker.TrackSynchroEvent(myTracker.SessionStart());
         }
         private void OnApplicationQuit()
         {
             myTracker.TrackSynchroEvent(myTracker.SessionEnd());
+        }
+
+        private void OnEnable()
+        {
+            if(triggerType == TestTrigger.ONUNLOAD)
+            {
+                // Suscribir al evento de cambio de escena
+                SceneManager.sceneUnloaded += EscenaDescargada;
+            }
+        }
+        // Este método se llama cuando el objeto es desactivado
+        private void OnDisable()
+        {
+            if(triggerType == TestTrigger.ONUNLOAD)
+            {
+                // Desuscribir del evento para evitar fugas de memoria
+                SceneManager.sceneUnloaded -= EscenaDescargada;
+            }
+        }
+        private void EscenaDescargada(Scene escena)
+        {
+            if (escena.name == "unloadSceneName" /*testScene == isvalid*/)
+            {
+                SceneManager.SetActiveScene(SceneManager.GetSceneByName("TestScene"));
+            }
         }
 
         /// <summary>
@@ -178,6 +210,9 @@ namespace GURHelper
                 case TestTrigger.CUSTOM:
                     Console.WriteLine("RECUERDA: HACER LA LLAMADA EN TU LÓGICA A GurManager::instance.ShowTest()");
                     custom = true;
+                    break;
+                case TestTrigger.ONUNLOAD:
+
                     break;
             }
         }
