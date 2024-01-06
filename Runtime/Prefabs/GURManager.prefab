@@ -502,6 +502,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4290053783787857853}
   - component: {fileID: 4290053783787857852}
+  - component: {fileID: -6170835759658112701}
   m_Layer: 0
   m_Name: GURManager
   m_TagString: Untagged
@@ -541,9 +542,22 @@ MonoBehaviour:
   triggerType: 0
   minutes: 0.1
   showMinutes: 1
+  unloadSceneName: 
   persistences: 0000
   serializers: 0000
   trackerType: 0
+--- !u!114 &-6170835759658112701
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4290053783787857795}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bf142a74c7b2fab49af3f3329bf62ba8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &6300599474032204534
 GameObject:
   m_ObjectHideFlags: 0
