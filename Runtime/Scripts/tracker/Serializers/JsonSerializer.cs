@@ -12,6 +12,10 @@ namespace GURHelper
         {
             return JsonUtility.ToJson(e);
         }
+        public string Serialize(Question q)
+        {
+            return JsonUtility.ToJson(q.Interpret());
+        }
 
         public string getExtension()
         {

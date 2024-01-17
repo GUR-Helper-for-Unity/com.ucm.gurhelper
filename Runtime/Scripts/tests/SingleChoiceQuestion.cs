@@ -9,11 +9,8 @@ using System;
 
 namespace GURHelper
 {
-    public class SingleChoiceQuestion : MonoBehaviour, IQuestion
+    public class SingleChoiceQuestion : Question
     {
-        [SerializeField]
-        private string _enunciado;
-        private int? _numero = null;
         [SerializeField]
         private TMP_Text enunciadoDisplayText;
         [SerializeField]
@@ -21,30 +18,25 @@ namespace GURHelper
         [SerializeField]
         string[] opciones;
         //TO DO Crear un resources dictionary
+        [SerializeField]
         GameObject togglePrefabUI;
 
-        public string enunciado { get => _enunciado; }
-        public int? numero { get => _numero; }
-
-
-        public string Interpret()
+        public override string Interpret()
         {
             string toggleActiveText = questionsDisplayToggle.GetFirstActiveToggle().GetComponentInChildren<Text>().text;
             int opcionIndex = Array.IndexOf(opciones, toggleActiveText);
 
-            string _respuesta = '\n' + numero.ToString() + ": " + _enunciado + '\n' + "ANS - " + opcionIndex.ToString() + ": " + toggleActiveText;
-
-            return _respuesta;
+            return '\n' + numero.ToString() + ": " + _enunciado + '\n' + "ANS - " + opcionIndex.ToString() + ": " + toggleActiveText;
         }
-
 
         private void Start()
         {
             enunciadoDisplayText.text = _enunciado;
             for (int i = 0; i < opciones.Length; i++)
             {
-                GameObject childObj = Instantiate<GameObject>(togglePrefabUI, questionsDisplayToggle.transform, false);
+                GameObject childObj = Instantiate<GameObject>(togglePrefabUI, questionsDisplayToggle.transform, true);
                 questionsDisplayToggle.RegisterToggle(childObj.GetComponent<UnityEngine.UI.Toggle>());
+                childObj.GetComponent<UnityEngine.UI.Toggle>().group = questionsDisplayToggle;
                 Text t = childObj.GetComponentInChildren<Text>();
                 t.text = opciones[i];
             }

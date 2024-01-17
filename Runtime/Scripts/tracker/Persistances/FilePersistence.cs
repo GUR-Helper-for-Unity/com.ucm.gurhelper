@@ -13,7 +13,8 @@ namespace GURHelper
     {
         public FilePersistence(Serializer s) : base(s)
         {
-            cola = new ConcurrentQueue<string>();
+            colaEventos = new ConcurrentQueue<string>();
+            colaTest = new ConcurrentQueue<string>();
             Thread t = new Thread(new ThreadStart(PersistThread));
             t.Start();
         }
@@ -48,10 +49,18 @@ namespace GURHelper
 
         public override void Persist()
         {
-            while (cola.Count > 0)
+            while (colaEventos.Count > 0)
             {
                 string s;
-                if (cola.TryDequeue(out s))
+                if (colaEventos.TryDequeue(out s))
+                {
+                    _streamWriter.WriteLine(s);
+                }
+            }
+            while (colaTest.Count > 0)
+            {
+                string s;
+                if (colaTest.TryDequeue(out s))
                 {
                     _streamWriter.WriteLine(s);
                 }
@@ -69,7 +78,13 @@ namespace GURHelper
                 sesion = e.sesion;
                 CreateDirectory();
             }
-            cola.Enqueue(s);
+            colaEventos.Enqueue(s);
+        }
+
+        public override void Send(Question q)
+        {
+            string s = serializer.Serialize(q);
+            colaEventos.Enqueue(s);
         }
 
         string directory;

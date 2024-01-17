@@ -23,6 +23,8 @@ namespace GURHelper
 
         [Tooltip("Objeto que contiene el Canvas que se va a utilizar (prefab en la carpeta del package)")]
         public GameObject GURCanvas;
+        [Tooltip("Prefab del cuestionario a mostrar")]
+        public Test test;
         [Tooltip("Elige cuando se va a activar la prueba.")]
         public TestTrigger triggerType;
         [HideInInspector]
@@ -30,11 +32,6 @@ namespace GURHelper
         [HideInInspector]
         public bool showMinutes = false;
         float previousTimeScale = 1f;
-        bool custom = false;
-
-        [Tooltip("GURManager comprobará que la escena a descargar sea esta antes de lanzar el test en modo UNLOAD.")]
-        public string unloadSceneName = "";
-
 
         //TRACKER RELATED
         [HideInInspector]
@@ -45,7 +42,6 @@ namespace GURHelper
         public trackerType trackerType = trackerType.BASIC;
         private Tracker myTracker;
 
-        Scene testScene;
 
         private void Awake()
         {
@@ -64,7 +60,6 @@ namespace GURHelper
         }
         private void Start()
         {
-            SceneManager.LoadScene("TestScene", LoadSceneMode.Additive);
             myTracker.TrackSynchroEvent(myTracker.SessionStart());
         }
         private void OnApplicationQuit()
@@ -72,30 +67,6 @@ namespace GURHelper
             myTracker.TrackSynchroEvent(myTracker.SessionEnd());
         }
 
-        private void OnEnable()
-        {
-            if(triggerType == TestTrigger.ONUNLOAD)
-            {
-                // Suscribir al evento de cambio de escena
-                SceneManager.sceneUnloaded += EscenaDescargada;
-            }
-        }
-        // Este método se llama cuando el objeto es desactivado
-        private void OnDisable()
-        {
-            if(triggerType == TestTrigger.ONUNLOAD)
-            {
-                // Desuscribir del evento para evitar fugas de memoria
-                SceneManager.sceneUnloaded -= EscenaDescargada;
-            }
-        }
-        private void EscenaDescargada(Scene escena)
-        {
-            if (escena.name == "unloadSceneName" /*testScene == isvalid*/)
-            {
-                SceneManager.SetActiveScene(SceneManager.GetSceneByName("TestScene"));
-            }
-        }
 
         /// <summary>
         /// Método para actualizar los valores que se ven en el editor: cuadro de texto para añadir los minutos que durará la prueba
@@ -198,6 +169,7 @@ namespace GURHelper
             ///en caso de que se quiera realizar la prueba cuando se cargue la escena actual, 
             ///se añaden los comportamientos al SceneManager
             ///en caso de que se haga por tiempo, se realiza un Invoke con un tiempo de espera de x minutos.
+            GetComponentInChildren<AddContent>(true).SetTest(test);
             GURCanvas.SetActive(false);
             switch (triggerType)
             {
@@ -209,10 +181,9 @@ namespace GURHelper
                     break;
                 case TestTrigger.CUSTOM:
                     Console.WriteLine("RECUERDA: HACER LA LLAMADA EN TU LÓGICA A GurManager::instance.ShowTest()");
-                    custom = true;
                     break;
                 case TestTrigger.ONUNLOAD:
-
+                    Console.WriteLine("ON UNLOAD NOT IMPLEMENTED");
                     break;
             }
         }
@@ -238,6 +209,7 @@ namespace GURHelper
             Time.timeScale = previousTimeScale;
             GURCanvas.SetActive(false);
             myTracker.TrackSynchroEvent(myTracker.TestEnd());
+            myTracker.TrackTest(test.myTest);
         }
 
     }

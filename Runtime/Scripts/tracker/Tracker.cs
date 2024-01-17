@@ -36,6 +36,16 @@ namespace GURHelper
                 persistence.Send(e);
             }
         }
+        public void TrackTest(Question[] myTest)
+        {
+            foreach (Persistence persistence in persistences)
+            {
+                foreach (Question q in myTest)
+                {
+                    persistence.Send(q);
+                }
+            }
+        }
         private bool CheckUsage(GUREvent e)
         {
             //caso base: usable en cualquier tracker

@@ -21,6 +21,7 @@ namespace GURHelper
             Debug.Log("Added serializer: " + s.GetType().Name);
         }
         public abstract void Send(GUREvent e);
+        public abstract void Send(Question q);
         public void PersistThread()
         {
             Stopwatch sw = Stopwatch.StartNew();
@@ -40,7 +41,8 @@ namespace GURHelper
         }
         public abstract void Persist();
         protected Serializer serializer;
-        protected ConcurrentQueue<string> cola;
+        protected ConcurrentQueue<string> colaEventos;
+        protected ConcurrentQueue<string> colaTest;
         protected StreamWriter _streamWriter;
         protected long sesion;
         protected double milisecondsToPersist = 1000;

@@ -13,8 +13,7 @@ namespace GURHelper
     {
         private ScrollRect scrollRect;
         private RectTransform viewport;
-        [SerializeField]
-        private GameObject pruebaPrefab;
+        private Test pruebaPrefab;
         private GameObject testInstance;
 
         /// <summary>
@@ -31,9 +30,13 @@ namespace GURHelper
         private void OnEnable()
         {
             //instanciamos la prueba correspondiente
-            testInstance = Instantiate<GameObject>(pruebaPrefab, viewport.gameObject.transform);
+            testInstance = Instantiate<GameObject>(pruebaPrefab.gameObject, viewport.gameObject.transform);
             scrollRect.content = testInstance.GetComponent<RectTransform>();
             testInstance.GetComponent<Pagination>().scrollRect = scrollRect;
+        }
+        public void SetTest(Test test)
+        {
+            pruebaPrefab = test;
         }
         private void OnDisable()
         {

@@ -19,6 +19,18 @@ namespace GURHelper
 
             return s;
         }
+        public string Serialize(Question q)
+        {
+            BinaryFormatter binaryFormatter = new BinaryFormatter();
+            MemoryStream stream = new MemoryStream();
+            binaryFormatter.Serialize(stream, q.Interpret());
+            stream.Position = 0;
+
+            StreamReader reader = new StreamReader(stream);
+            string s = reader.ReadToEnd();
+
+            return s;
+        }
 
         public string getExtension()
         {

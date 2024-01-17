@@ -28,13 +28,3 @@ namespace GURHelper
     }
 }
 
-/*
-public enum eventType
-{
-    //BASIC EVENTS
-    SESSION_START, SESSION_END, TEST_START, TEST_END, LEVEL_START, LEVEL_END, PAUSE, UNPAUSE,
-    //DIFFICULTY DEATH TEST RELATED
-    DEATH, PLAYER_POSITION,
-    //END
-    NULL
-}*/
