@@ -20,6 +20,8 @@ namespace GURHelper
         ToggleGroup questionsDisplayToggle;
         [SerializeField]
         string[] opciones;
+        //TO DO Crear un resources dictionary
+        GameObject togglePrefabUI;
 
         public string enunciado { get => _enunciado; }
         public int? numero { get => _numero; }
@@ -41,7 +43,7 @@ namespace GURHelper
             enunciadoDisplayText.text = _enunciado;
             for (int i = 0; i < opciones.Length; i++)
             {
-                GameObject childObj = Instantiate<GameObject>(ResourcesDictionary.Instance.GetResource("toggle"), questionsDisplayToggle.transform, false);
+                GameObject childObj = Instantiate<GameObject>(togglePrefabUI, questionsDisplayToggle.transform, false);
                 questionsDisplayToggle.RegisterToggle(childObj.GetComponent<UnityEngine.UI.Toggle>());
                 Text t = childObj.GetComponentInChildren<Text>();
                 t.text = opciones[i];
