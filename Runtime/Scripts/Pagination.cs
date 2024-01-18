@@ -84,6 +84,11 @@ namespace GURHelper
 
         public void finishTest()
         {
+            //activacion de los objetos para recoger sus datos
+            for(int i = 0; i<pages.Count; i++)
+            {
+                pages[i].gameObject.SetActive(true);
+            }
             GURManager.Instance.EndTest();
         }
     }

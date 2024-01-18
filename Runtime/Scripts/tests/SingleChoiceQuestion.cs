@@ -23,10 +23,15 @@ namespace GURHelper
 
         public override string Interpret()
         {
-            string toggleActiveText = questionsDisplayToggle.GetFirstActiveToggle().GetComponentInChildren<Text>().text;
+            var toggleActiveText = questionsDisplayToggle.GetFirstActiveToggle();
+            var a = toggleActiveText.GetComponentInChildren<Text>().text;
             int opcionIndex = Array.IndexOf(opciones, toggleActiveText);
 
             return '\n' + numero.ToString() + ": " + _enunciado + '\n' + "ANS - " + opcionIndex.ToString() + ": " + toggleActiveText;
+        }
+        private void Update()
+        {
+            Debug.Log(questionsDisplayToggle.GetFirstActiveToggle().GetComponentInChildren<Text>().text);
         }
 
         private void Start()
@@ -40,7 +45,6 @@ namespace GURHelper
                 Text t = childObj.GetComponentInChildren<Text>();
                 t.text = opciones[i];
             }
-            questionsDisplayToggle.SetAllTogglesOff();
         }
 
     }

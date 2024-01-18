@@ -5,7 +5,7 @@ using UnityEngine.SceneManagement;
 using UnityEditor;
 using System.Linq;
 using System;
-
+using UnityEngine.UI;
 
 namespace GURHelper
 {
@@ -206,10 +206,10 @@ namespace GURHelper
         /// </summary>
         public void EndTest()
         {
-            Time.timeScale = previousTimeScale;
-            GURCanvas.SetActive(false);
             myTracker.TrackSynchroEvent(myTracker.TestEnd());
             myTracker.TrackTest(test.myTest);
+            GURCanvas.SetActive(false);
+            Time.timeScale = previousTimeScale;
         }
 
     }
