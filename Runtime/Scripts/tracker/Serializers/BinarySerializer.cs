@@ -23,7 +23,10 @@ namespace GURHelper
         {
             BinaryFormatter binaryFormatter = new BinaryFormatter();
             MemoryStream stream = new MemoryStream();
-            binaryFormatter.Serialize(stream, q.Interpret());
+            q.Interpret();
+            binaryFormatter.Serialize(stream, q.numero.ToString());
+            binaryFormatter.Serialize(stream, q.enunciado.ToString());
+            binaryFormatter.Serialize(stream, q.respuesta.ToString());
             stream.Position = 0;
 
             StreamReader reader = new StreamReader(stream);

@@ -20,14 +20,12 @@ namespace GURHelper
         //TO DO Crear un resources dictionary
         [SerializeField]
         GameObject togglePrefabUI;
+        private static string selectedOption = "";
 
-        public override string Interpret()
+        public override void Interpret()
         {
-            var toggleActiveText = questionsDisplayToggle.GetFirstActiveToggle();
-            var a = toggleActiveText.GetComponentInChildren<Text>().text;
-            int opcionIndex = Array.IndexOf(opciones, toggleActiveText);
-
-            return '\n' + numero.ToString() + ": " + _enunciado + '\n' + "ANS - " + opcionIndex.ToString() + ": " + toggleActiveText;
+            int opcionIndex = Array.IndexOf(opciones, selectedOption);
+            _respuesta = opcionIndex.ToString() + ":" + selectedOption;
         }
         private void Update()
         {
@@ -40,13 +38,22 @@ namespace GURHelper
             for (int i = 0; i < opciones.Length; i++)
             {
                 GameObject childObj = Instantiate<GameObject>(togglePrefabUI, questionsDisplayToggle.transform, true);
-                questionsDisplayToggle.RegisterToggle(childObj.GetComponent<UnityEngine.UI.Toggle>());
-                childObj.GetComponent<UnityEngine.UI.Toggle>().group = questionsDisplayToggle;
+                UnityEngine.UI.Toggle tog = childObj.GetComponent<UnityEngine.UI.Toggle>();
                 Text t = childObj.GetComponentInChildren<Text>();
+                tog.onValueChanged.AddListener(delegate { ToggleValueChanged(tog); });
+                questionsDisplayToggle.RegisterToggle(tog);
+                childObj.GetComponent<UnityEngine.UI.Toggle>().group = questionsDisplayToggle;
                 t.text = opciones[i];
             }
         }
-
+        void ToggleValueChanged(UnityEngine.UI.Toggle clicked)
+        {
+            Text t = clicked.GetComponentInChildren<Text>();
+            selectedOption = t.text;
+        }
     }
+
+    
+
 }
 

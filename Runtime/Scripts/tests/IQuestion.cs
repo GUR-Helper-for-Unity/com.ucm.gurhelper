@@ -11,11 +11,7 @@ namespace GURHelper
         /// <summary>
         /// Método que traduce lo que se encuentre en la UI a un string que contiene la pregunta y la respuesta asociada a este objeto.
         /// </summary>
-        public string Interpret();
-        /// <summary>
-        /// Le envía al Tracker la respuesta de la pregunta para su serialización y persistencia.
-        /// </summary>
-        public void TrackQuestion();
+        public void Interpret();
     }
 
 
@@ -30,13 +26,8 @@ namespace GURHelper
         public int? numero { get => _numero; }
         public string respuesta { get =>  _respuesta; }
 
-        public abstract string Interpret();
+        public abstract void Interpret();
 
-        public void TrackQuestion()
-        {
-            _respuesta = Interpret();
-            //Tracker.Instance.TrackSynchroEvent(Tracker.Instance.Question).answer = _respuesta;
-        }
     }
 }
 

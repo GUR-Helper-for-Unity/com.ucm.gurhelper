@@ -58,10 +58,6 @@ namespace GURHelper
                 Destroy(gameObject);
             }
         }
-        private void Start()
-        {
-            myTracker.TrackSynchroEvent(myTracker.SessionStart());
-        }
         private void OnApplicationQuit()
         {
             myTracker.TrackSynchroEvent(myTracker.SessionEnd());
@@ -156,6 +152,7 @@ namespace GURHelper
                     }
                 }
             }
+            myTracker.TrackSynchroEvent(myTracker.SessionStart());
 
         }
 
@@ -206,8 +203,8 @@ namespace GURHelper
         /// </summary>
         public void EndTest()
         {
-            myTracker.TrackSynchroEvent(myTracker.TestEnd());
             myTracker.TrackTest(test.myTest);
+            myTracker.TrackSynchroEvent(myTracker.TestEnd());
             GURCanvas.SetActive(false);
             Time.timeScale = previousTimeScale;
         }

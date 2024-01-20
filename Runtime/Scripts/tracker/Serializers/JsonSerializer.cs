@@ -14,7 +14,13 @@ namespace GURHelper
         }
         public string Serialize(Question q)
         {
-            return JsonUtility.ToJson(q.Interpret());
+            q.Interpret();
+            string answer = q.respuesta;
+            return "{" +
+                "\"questionID\":\"" + q.numero.ToString() + "\"" + ',' +
+                "\"questionText\":\"" + q.enunciado + "\"" + ',' +
+                "\"answer\":\"" + answer + "\"" +
+                "}";
         }
 
         public string getExtension()
