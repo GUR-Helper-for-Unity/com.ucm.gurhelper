@@ -425,6 +425,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   myTest:
   - {fileID: 2843620060751756959}
+  - {fileID: 3059656768633882423}
 --- !u!1 &2564441529519338315
 GameObject:
   m_ObjectHideFlags: 0
@@ -2611,6 +2612,15 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 1470604281523220244, guid: 9dcd9b19289ae964497d603af6e03e62, type: 3}
+      propertyPath: _enunciado
+      value: "Indica, siguiendo la siguiente escala, cual es tu experiencia jugando
+        a videojuegos en general \u2192 0(nunca he jugado) - 5 (soy jugador habitual)"
+      objectReference: {fileID: 0}
+    - target: {fileID: 1470604281523220244, guid: 9dcd9b19289ae964497d603af6e03e62, type: 3}
+      propertyPath: maxOptions
+      value: 5
+      objectReference: {fileID: 0}
     - target: {fileID: 2698184382742136898, guid: 9dcd9b19289ae964497d603af6e03e62, type: 3}
       propertyPath: m_AnchorMax.y
       value: 0
@@ -2721,12 +2731,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3525964757174734316, guid: 9dcd9b19289ae964497d603af6e03e62, type: 3}
       propertyPath: m_text
-      value: "Indica, siguiendo la siguiente escala, cual es tu experiencia jugando
-        a videojuegos en general \u2192 0(nunca he jugado) - 5 (soy jugador habitual)"
+      value: 
       objectReference: {fileID: 0}
     - target: {fileID: 3525964757174734316, guid: 9dcd9b19289ae964497d603af6e03e62, type: 3}
       propertyPath: m_fontSize
-      value: 14.6
+      value: 36
       objectReference: {fileID: 0}
     - target: {fileID: 3525964757174734317, guid: 9dcd9b19289ae964497d603af6e03e62, type: 3}
       propertyPath: m_AnchorMax.y
@@ -2771,6 +2780,17 @@ RectTransform:
   m_CorrespondingSourceObject: {fileID: 3525964755671946094, guid: 9dcd9b19289ae964497d603af6e03e62, type: 3}
   m_PrefabInstance: {fileID: 4476216649453070371}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &3059656768633882423 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 1470604281523220244, guid: 9dcd9b19289ae964497d603af6e03e62, type: 3}
+  m_PrefabInstance: {fileID: 4476216649453070371}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: eaaba59a97d8426429413b944deef9cc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &8517990504671556050
 PrefabInstance:
   m_ObjectHideFlags: 0

@@ -242,6 +242,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3525964755671946094}
   - component: {fileID: 1815254854962015982}
+  - component: {fileID: 1470604281523220244}
   m_Layer: 5
   m_Name: Slider
   m_TagString: Untagged
@@ -297,6 +298,22 @@ MonoBehaviour:
   m_ChildScaleWidth: 0
   m_ChildScaleHeight: 0
   m_ReverseArrangement: 0
+--- !u!114 &1470604281523220244
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3525964755671946095}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: eaaba59a97d8426429413b944deef9cc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _enunciado: Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+  enunciadoDisplayText: {fileID: 3525964757174734316}
+  maxOptions: 5
+  optionsDisplayText: {fileID: 2897266757913658078}
 --- !u!1 &3525964757174734314
 GameObject:
   m_ObjectHideFlags: 0
@@ -363,7 +380,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+  m_text: 
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -390,7 +407,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 22.05
+  m_fontSize: 36
   m_fontSizeBase: 36
   m_fontWeight: 400
   m_enableAutoSizing: 1
@@ -498,7 +515,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 0 1 2 3 4 5
+  m_text: 
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -525,7 +542,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 13.4
+  m_fontSize: 15
   m_fontSizeBase: 15
   m_fontWeight: 400
   m_enableAutoSizing: 1

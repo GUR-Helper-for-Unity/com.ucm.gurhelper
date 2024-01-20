@@ -27,10 +27,6 @@ namespace GURHelper
             int opcionIndex = Array.IndexOf(opciones, selectedOption);
             _respuesta = opcionIndex.ToString() + ":" + selectedOption;
         }
-        private void Update()
-        {
-            Debug.Log(questionsDisplayToggle.GetFirstActiveToggle().GetComponentInChildren<Text>().text);
-        }
 
         private void Start()
         {

@@ -9,7 +9,6 @@ namespace GURHelper
         string respuesta { get; }
 
         /// <summary>
-        /// Método que traduce lo que se encuentre en la UI a un string que contiene la pregunta y la respuesta asociada a este objeto.
         /// </summary>
         public void Interpret();
     }
