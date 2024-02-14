@@ -19,14 +19,12 @@ namespace GURHelper
 
             return s;
         }
-        public string Serialize(Question q)
+        public string Serialize(int questionID, string answer)
         {
             BinaryFormatter binaryFormatter = new BinaryFormatter();
             MemoryStream stream = new MemoryStream();
-            q.Interpret();
-            binaryFormatter.Serialize(stream, q.numero.ToString());
-            binaryFormatter.Serialize(stream, q.enunciado.ToString());
-            binaryFormatter.Serialize(stream, q.respuesta.ToString());
+            binaryFormatter.Serialize(stream, questionID.ToString());
+            binaryFormatter.Serialize(stream, answer);
             stream.Position = 0;
 
             StreamReader reader = new StreamReader(stream);

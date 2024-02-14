@@ -81,9 +81,9 @@ namespace GURHelper
             colaEventos.Enqueue(s);
         }
 
-        public override void Send(Question q)
+        public override void Send(int questionID, string answer)
         {
-            string s = serializer.Serialize(q);
+            string s = serializer.Serialize(questionID, answer);
             colaEventos.Enqueue(s);
         }
 

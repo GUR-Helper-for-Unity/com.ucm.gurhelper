@@ -23,6 +23,10 @@ namespace GURHelper
         public override void Interpret()
         {
             _respuesta = selectedOption.ToString();
+            if (isSingle)
+            {
+                Test.Instance.UpdateRespuesta(numero, _respuesta);
+            }
         }
         private void Start()
         {
@@ -33,13 +37,15 @@ namespace GURHelper
             slider.maxValue = maxOptions;
             slider.value = selectedOption;
             slider.onValueChanged.AddListener(delegate { ToggleValueChanged(slider); });
+            Interpret();
         }
         void ToggleValueChanged(UnityEngine.UI.Slider changed)
         {
             selectedOption = changed.value;
+            Interpret();
         }
 
-        public void InitFromGroup(int numOps, string enunciado, int? numPregunta)
+        public void InitFromGroup(int numOps, string enunciado, int numPregunta)
         {
             isSingle = false;
             _enunciado = enunciado;

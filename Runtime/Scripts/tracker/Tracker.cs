@@ -7,11 +7,11 @@ namespace GURHelper
 {
     public class Tracker
     {
-        private static Tracker instance;
         public trackerType type { get; set; }
         public bool isDirectoryOn { get; set; } = false;
 
         public Tracker() { type = trackerType.BASIC; }
+        private static Tracker instance;
         public static Tracker Instance
         {
             get
@@ -36,13 +36,13 @@ namespace GURHelper
                 persistence.Send(e);
             }
         }
-        public void TrackTest(List<Question> myTest)
+        public void TrackTest(Dictionary<int, string> myTest)
         {
             foreach (Persistence persistence in persistences)
             {
-                foreach (Question q in myTest)
+                foreach (var q in myTest)
                 {
-                    persistence.Send(q);
+                    persistence.Send(q.Key, q.Value);
                 }
             }
         }

@@ -12,13 +12,10 @@ namespace GURHelper
         {
             return JsonUtility.ToJson(e);
         }
-        public string Serialize(Question q)
+        public string Serialize(int questionID, string answer)
         {
-            q.Interpret();
-            string answer = q.respuesta;
             return "{" +
-                "\"questionID\":\"" + q.numero.ToString() + "\"" + ',' +
-                "\"questionText\":\"" + q.enunciado + "\"" + ',' +
+                "\"questionID\":\"" + questionID.ToString() + "\"" + ',' +
                 "\"answer\":\"" + answer + "\"" +
                 "}";
         }

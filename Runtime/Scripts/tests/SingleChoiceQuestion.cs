@@ -26,6 +26,8 @@ namespace GURHelper
         {
             int opcionIndex = Array.IndexOf(opciones, selectedOption);
             _respuesta = opcionIndex.ToString() + ":" + selectedOption;
+            Test.Instance.UpdateRespuesta(numero, _respuesta);
+
         }
 
         private void Start()
@@ -41,11 +43,13 @@ namespace GURHelper
                 childObj.GetComponent<UnityEngine.UI.Toggle>().group = questionsDisplayToggle;
                 t.text = opciones[i];
             }
+            Interpret();
         }
         void ToggleValueChanged(UnityEngine.UI.Toggle clicked)
         {
             Text t = clicked.GetComponentInChildren<Text>();
             selectedOption = t.text;
+            Interpret();
         }
     }
 

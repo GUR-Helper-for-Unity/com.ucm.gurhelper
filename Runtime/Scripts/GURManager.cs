@@ -194,7 +194,6 @@ namespace GURHelper
             Debug.Log("mostrando test...");
             Time.timeScale = 0f;
             GURCanvas.SetActive(true);
-            myTracker.TrackSynchroEvent(myTracker.TestStarted());
 
         }
 
@@ -203,10 +202,11 @@ namespace GURHelper
         /// </summary>
         public void EndTest()
         {
-            myTracker.TrackTest(test.myTest);
+            myTracker.TrackTest(Test.respuestasTest);
             myTracker.TrackSynchroEvent(myTracker.TestEnd());
             GURCanvas.SetActive(false);
             Time.timeScale = previousTimeScale;
+
         }
 
     }

@@ -21,7 +21,7 @@ namespace GURHelper
             Debug.Log("Added serializer: " + s.GetType().Name);
         }
         public abstract void Send(GUREvent e);
-        public abstract void Send(Question q);
+        public abstract void Send(int questionID, string answer);
         public void PersistThread()
         {
             Stopwatch sw = Stopwatch.StartNew();

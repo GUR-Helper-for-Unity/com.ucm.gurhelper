@@ -14,17 +14,19 @@ namespace GURHelper
 
         public override void Interpret()
         {
-            //no hace nada
+            Test.Instance.UpdateRespuesta(numero, _respuesta);
         }
 
         private void Start()
         {
             answerField = GetComponentInChildren<TMP_InputField>();
+            Interpret();
         }
 
         public void saveText()
         {
             _respuesta = answerField.text;
+            Interpret();
         }
     }
 
