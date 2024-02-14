@@ -18,7 +18,7 @@ namespace GURHelper
         private int maxOptions = 5;
         [SerializeField]
         private TMP_Text optionsDisplayText;
-        private static float selectedOption = 0;
+        private float selectedOption = 0;
         private bool isSingle = true;
         public override void Interpret()
         {

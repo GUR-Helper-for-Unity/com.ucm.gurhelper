@@ -20,7 +20,7 @@ namespace GURHelper
         //TO DO Crear un resources dictionary
         [SerializeField]
         GameObject togglePrefabUI;
-        private static string selectedOption = "";
+        private string selectedOption = "";
 
         public override void Interpret()
         {

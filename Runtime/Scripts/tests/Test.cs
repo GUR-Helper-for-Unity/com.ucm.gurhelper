@@ -5,5 +5,5 @@ using UnityEngine;
 
 public class Test : MonoBehaviour
 { 
-    public Question[] myTest;
+    public List<Question> myTest;
 }
