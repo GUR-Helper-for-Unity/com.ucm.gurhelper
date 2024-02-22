@@ -27,7 +27,7 @@ namespace GURHelper
         public string respuesta { get =>  _respuesta; }
 
         public abstract void Interpret();
-        private void Awake()
+        public void setGlobalNumber()
         {
             _numero = questionCounter++;
         }

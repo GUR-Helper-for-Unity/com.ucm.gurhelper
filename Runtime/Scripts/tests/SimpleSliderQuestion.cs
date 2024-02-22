@@ -19,7 +19,8 @@ namespace GURHelper
         [SerializeField]
         private TMP_Text optionsDisplayText;
         private float selectedOption = 0;
-        private bool isSingle = true;
+        public bool isSingle = false;
+        private MultipleSliderQuestion father;
         public override void Interpret()
         {
             _respuesta = selectedOption.ToString();
@@ -27,6 +28,11 @@ namespace GURHelper
             {
                 Test.Instance.UpdateRespuesta(numero, _respuesta);
             }
+        }
+        private void Awake()
+        {
+            if(isSingle)
+                setGlobalNumber();
         }
         private void Start()
         {
@@ -41,12 +47,21 @@ namespace GURHelper
         }
         void ToggleValueChanged(UnityEngine.UI.Slider changed)
         {
-            selectedOption = changed.value;
-            Interpret();
+            if (father == null)
+            {
+                selectedOption = changed.value;
+                Interpret();
+            }
+            else
+            {
+                selectedOption = changed.value;
+                father.updateAnswer(_numero, (int)selectedOption);
+            }
         }
 
-        public void InitFromGroup(int numOps, string enunciado, int numPregunta)
+        public void InitFromGroup(MultipleSliderQuestion ms, int numOps, string enunciado, int numPregunta)
         {
+            father = ms;
             isSingle = false;
             _enunciado = enunciado;
             _numero = numPregunta;

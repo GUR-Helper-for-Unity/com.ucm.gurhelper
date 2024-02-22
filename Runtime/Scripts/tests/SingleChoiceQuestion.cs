@@ -29,7 +29,10 @@ namespace GURHelper
             Test.Instance.UpdateRespuesta(numero, _respuesta);
 
         }
-
+        private void Awake()
+        {
+            setGlobalNumber();
+        }
         private void Start()
         {
             enunciadoDisplayText.text = _enunciado;

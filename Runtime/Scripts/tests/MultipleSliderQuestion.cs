@@ -16,6 +16,7 @@ namespace GURHelper
         private TMP_Text enunciadoDisplayText;
         [SerializeField]
         private int maxOptions = 5;
+        private int[] answers;
         [SerializeField]
         private TMP_Text optionsDisplayText;
         [SerializeField]
@@ -26,26 +27,35 @@ namespace GURHelper
         public override void Interpret()
         {
             _respuesta = "";
-            for (int i = 0; i < sliders.Count; i++)
+            for (int i = 0; i < answers.Length; i++)
             {
-                sliders[i].Interpret();
-                _respuesta += i + " ("+ sliders[i].respuesta + ") ";
+                _respuesta += i + " ("+ answers[i] + ") ";
                 Test.Instance.UpdateRespuesta(numero, _respuesta);
             }
         }
-
+        private void Awake()
+        {
+            setGlobalNumber();
+        }
         private void Start()
         {
             enunciadoDisplayText.text = _enunciado;
             optionsDisplayText.text = string.Join(" ", Enumerable.Range(0, maxOptions + 1));
-
+            answers = new int[questions.Length];
             for (int i = 0; i < questions.Length; i++)
             {
                 GameObject childObj = Instantiate<GameObject>(simpleSliderPrefab, transform, true);
                 SimpleSliderQuestion simpleslider = childObj.GetComponent<SimpleSliderQuestion>();
                 sliders.Add(simpleslider);
-                simpleslider.InitFromGroup(maxOptions, questions[i], _numero);
+                simpleslider.InitFromGroup(this, maxOptions, questions[i], i);
+                answers[i] = -1;
             }
+            Interpret();
+        }
+
+        public void updateAnswer(int simpleSlider, int answer)
+        {
+            answers[simpleSlider] = answer;
             Interpret();
         }
     }

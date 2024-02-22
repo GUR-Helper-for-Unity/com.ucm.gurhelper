@@ -17,6 +17,10 @@ namespace GURHelper
             Test.Instance.UpdateRespuesta(numero, _respuesta);
         }
 
+        private void Awake()
+        {
+            setGlobalNumber();
+        }
         private void Start()
         {
             answerField = GetComponentInChildren<TMP_InputField>();

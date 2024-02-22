@@ -1288,6 +1288,10 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1470604281523220244, guid: 9dcd9b19289ae964497d603af6e03e62, type: 3}
+      propertyPath: isSingle
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1470604281523220244, guid: 9dcd9b19289ae964497d603af6e03e62, type: 3}
       propertyPath: _enunciado
       value: "Indica, siguiendo la siguiente escala, cual es tu experiencia jugando
         a videojuegos en general \u2192 0(nunca he jugado) - 5 (soy jugador habitual)"
